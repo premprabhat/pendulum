@@ -119,5 +119,4 @@ jobs:
             poetry config virtualenvs.in-project true && \
             poetry install --only default --only test -vvv && \
             PENDULUM_EXTENSIONS=0 poetry run pytest -q tests && \
-            poetry run pytest -q tests && \
-            deactivate'
+            poetry run pytest -q tests'

@@ -32,7 +32,7 @@ jobs:
           export PATH=/root/.local/bin:$PATH && \
           poetry build -vvv && \
           ${{ env.py }} -m pip install auditwheel && \
-          auditwheel repair dist/pendulum-*.whl'
+          auditwheel repair --plat manylinux2014_x86_64 dist/pendulum-*.whl'
     - name: Upload distributions artifacts
       uses: actions/upload-artifact@v1
       with:

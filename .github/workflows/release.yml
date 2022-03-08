@@ -33,9 +33,6 @@ jobs:
           poetry build -vvv && \
           cd dist && \
           ls && \
-          auditwheel repair "*.whl" && \
-          cd  wheelhouse && \
-          ls && \
           deactivate'
     - name: Upload distributions artifacts
       uses: actions/upload-artifact@v1

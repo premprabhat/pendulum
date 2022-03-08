@@ -31,11 +31,12 @@ jobs:
           ${{ env.py }} install-poetry.py --preview -y && \
           export PATH=/root/.local/bin:$PATH && \
           poetry build -vvv && \
-          find . -name "*manylinux_2_17_x86_64.whl"
-          ls
+          find . -name "*manylinux_2_17_x86_64.whl" && \
           cd dist && \
-          ls
-          auditwheel repair "$whl"
+          ls && \
+          auditwheel repair "*.whl" && \
+          cd  wheelhouse && \
+          ls && \
           deactivate'
     - name: Upload distributions artifacts
       uses: actions/upload-artifact@v1

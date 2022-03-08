@@ -32,7 +32,6 @@ jobs:
           export PATH=/root/.local/bin:$PATH && \
           poetry build -vvv && \
           ${{ env.py }} -m pip install auditwheel && \
-          cd dist && \
           auditwheel repair dist/pendulum-*.whl && \
           rm -rf dist/pendulum-*.whl'
     - name: Upload distributions artifacts

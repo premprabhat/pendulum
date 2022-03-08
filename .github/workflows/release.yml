@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         python-version: [cp37-cp37m, cp38-cp38, cp39-cp39, cp310-cp310]
-        img: [quay.io/pypa/manylinux2014_aarch64, quay.io/pypa/manylinux2014_x86_64, quay.io/pypa/manylinux2014_i686]
+        image: [manylinux2014_aarch64, manylinux2014_x86_64, manylinux2014_i686]
       fail-fast: false
     env:
       py: /opt/python/${{ matrix.python-version }}/bin/python
@@ -19,15 +19,21 @@ jobs:
       id: tag
       run: |
         echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
+    - name: Set up QEMU
+      if: ${{matrix.image}} == 'manylinux2014_aarch64'
+      id: qemu
+      uses: docker/setup-qemu-action@v1
     - name: Building release
       run: |
         docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
-          ${{ matrix.img }} \
+          quay.io/pypa/${{ matrix.image }} \
           bash -exc 'curl -fsS -o install-poetry.py https://raw.githubusercontent.com/sdispater/poetry/master/install-poetry.py && \
           ${{ env.py }} install-poetry.py --preview -y && \
           export PATH=/root/.local/bin:$PATH && \
           poetry build -vvv && \
+          ls
           cd dist && \
+          ls
           auditwheel repair "$whl"
           deactivate'
     - name: Upload distributions artifacts

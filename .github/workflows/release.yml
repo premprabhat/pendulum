@@ -32,8 +32,9 @@ jobs:
           export PATH=/root/.local/bin:$PATH && \
           poetry build -vvv && \
           cd dist && \
-          ls && \
-          deactivate'
+          auditwheel repair pendulum-*.whl && \
+          cd  wheelhouse && \
+          ls'
     - name: Upload distributions artifacts
       uses: actions/upload-artifact@v1
       with:

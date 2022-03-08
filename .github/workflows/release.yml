@@ -20,7 +20,7 @@ jobs:
       run: |
         echo ::set-output name=tag::${GITHUB_REF#refs/tags/}
     - name: Set up QEMU
-      if: ${{matrix.image}} == 'manylinux2014_aarch64'
+      if: ${{ matrix.image == 'manylinux2014_aarch64' }}
       id: qemu
       uses: docker/setup-qemu-action@v1
     - name: Building release
@@ -31,6 +31,7 @@ jobs:
           ${{ env.py }} install-poetry.py --preview -y && \
           export PATH=/root/.local/bin:$PATH && \
           poetry build -vvv && \
+          find . -name "*manylinux_2_17_x86_64.whl"
           ls
           cd dist && \
           ls

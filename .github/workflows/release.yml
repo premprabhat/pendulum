@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         python-version: [cp37-cp37m, cp38-cp38, cp39-cp39, cp310-cp310]
-        image: [manylinux2014_aarch64, manylinux2014_x86_64, manylinux2014_i686]
+        image: [manylinux2014_x86_64]
       fail-fast: false
     env:
       py: /opt/python/${{ matrix.python-version }}/bin/python
@@ -31,10 +31,10 @@ jobs:
           ${{ env.py }} install-poetry.py --preview -y && \
           export PATH=/root/.local/bin:$PATH && \
           poetry build -vvv && \
+          pip install auditwheel && \
           cd dist && \
-          auditwheel repair pendulum-*.whl && \
-          cd  wheelhouse && \
-          ls'
+          auditwheel repair dist/pendulum-*.whl && \
+          rm -rf dist/pendulum-*.whl'
     - name: Upload distributions artifacts
       uses: actions/upload-artifact@v1
       with:

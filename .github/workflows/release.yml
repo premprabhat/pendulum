@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         python-version: [cp37-cp37m, cp38-cp38, cp39-cp39, cp310-cp310]
-        image: [manylinux1_i686]
+        image: [manylinux2014_i686]
       fail-fast: false
     env:
       py: /opt/python/${{ matrix.python-version }}/bin/python
@@ -25,7 +25,7 @@ jobs:
       id: qemu
       uses: docker/setup-qemu-action@v1
     - name: Building release
-      if: ${{ matrix.image != 'manylinux1_i686' }}
+      if: ${{ matrix.image != 'manylinux2014_i686' }}
       run: |
         docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
           quay.io/pypa/${{ matrix.image }} \

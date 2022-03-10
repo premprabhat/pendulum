@@ -35,7 +35,7 @@ jobs:
           poetry build -vvv && \
           auditwheel repair dist/pendulum-*.whl'
     - name: Building release
-      if: ${{ matrix.image == 'manylinux1_i686' }}
+      if: ${{ matrix.image == 'manylinux2014_i686' }}
       run: |
         docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
           quay.io/pypa/${{ matrix.image }} \

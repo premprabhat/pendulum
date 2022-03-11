@@ -32,7 +32,7 @@ jobs:
           bash -exc 'curl -fsS -o install-poetry.py https://raw.githubusercontent.com/sdispater/poetry/master/install-poetry.py && \
           ${{ env.py }} install-poetry.py --preview -y && \
           export PATH=/root/.local/bin:$PATH && \
-          poetry build -vvv && \
+          poetry build -vvv && cd dist && \
           auditwheel repair dist/pendulum-*.whl'
     - name: Building release
       if: ${{ matrix.image == 'manylinux2014_i686' }}
@@ -50,8 +50,8 @@ jobs:
           curl -fsS -o install-poetry.py https://raw.githubusercontent.com/sdispater/poetry/master/install-poetry.py && \
           ${{ env.py }} install-poetry.py --preview -y && \
           export PATH=/root/.local/bin:$PATH && \
-          poetry build -vvv && \
-          auditwheel repair dist/pendulum-*.whl'
+          poetry build -vvv && cd dist && \
+          auditwheel repair pendulum-*.whl'
           
     - name: Upload distributions artifacts
       uses: actions/upload-artifact@v1

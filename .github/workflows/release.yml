@@ -33,7 +33,7 @@ jobs:
           ${{ env.py }} install-poetry.py --preview -y && \
           export PATH=/root/.local/bin:$PATH && \
           poetry build -vvv && cd dist && \
-          auditwheel repair dist/pendulum-*.whl'
+          auditwheel repair pendulum-*.whl'
     - name: Building release
       if: ${{ matrix.image == 'manylinux2014_i686' }}
       run: |

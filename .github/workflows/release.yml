@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         python-version: [cp37-cp37m, cp38-cp38, cp39-cp39, cp310-cp310]
-        image: [manylinux2014_i686]
+        image: [manylinux2014_x86_64, manylinux2014_i686, manylinux2014_aarch64]
       fail-fast: false
     env:
       py: /opt/python/${{ matrix.python-version }}/bin/python

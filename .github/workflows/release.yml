@@ -33,7 +33,7 @@ jobs:
           bash -exc 'curl -fsS -o get-poetry.py https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py && \
           export PATH=/opt/python/cp38-cp38/bin/:$PATH && \
           ${{ env.py }} get-poetry.py --preview -y --version 1.1.13 && \
-          export PATH=/root/.local/bin:$PATH && \
+          export PATH=$HOME/.poetry/env:$PATH && \
           poetry build -vvv && cd dist && \
           auditwheel repair pendulum-*.whl'
     - name: Building release
